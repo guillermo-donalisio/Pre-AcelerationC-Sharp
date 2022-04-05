@@ -11,17 +11,20 @@ public class DisneyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseSqlServer(connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Foreign keys as composite primary key in the joining table
+        modelBuilder.Entity<MovieCharacter>().HasKey(mc => new {mc.IdCharacter, mc.IdMovie});
+        modelBuilder.Entity<GenreMovie>().HasKey(gm => new {gm.IdGenre, gm.IdMovie});       
     }
 
     public DbSet<Character>? Characters {set;get;}
