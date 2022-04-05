@@ -6,6 +6,7 @@ public class Genre
         public string? Name {set;get;}
         public string? Image_url {set;get;}   
 
-        // Collection navigation property fk_GenreMovie
+        // Fluent API
+        // Collection navigation property
         public IList<GenreMovie>? GenreMovie { get; set; }
 }

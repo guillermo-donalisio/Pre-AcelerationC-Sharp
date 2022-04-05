@@ -8,10 +8,10 @@ public class Movie
         public string? Date_creation {set;get;}
         public int Rating {set;get;}  
 
-        // Collection navigation property fk_GenreMovie
+        // Collection navigation property 
         public IList<GenreMovie>? GenreMovie { get; set; }
 
-        // Collection navigation property fk_MovieCharacter
+        // Collection navigation property 
         public IList<MovieCharacter>? MovieCharacter { get; set; }
 
 }

@@ -9,7 +9,8 @@ public class Character
         public decimal Weight {set;get;}
         public string? Story {set;get;}
 
-        // Collection navigation property fk_MovieCharacter
+        // Fluent API
+        // Collection navigation property 
         public IList<MovieCharacter>? MovieCharacter { get; set; }
 
 }
