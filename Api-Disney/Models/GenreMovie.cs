@@ -4,9 +4,9 @@ namespace Api_Disney.Models;
 public class GenreMovie
 {
     // reference fk_genre
-    public int IdGenre {set;get;}
+    public int GenreID {set;get;}
     // reference navigation properties
     public Genre? Genre {set;get;}
-    public int IdMovie {set;get;}
+    public int MovieID {set;get;}
     public Movie? Movie {set;get;}
 }

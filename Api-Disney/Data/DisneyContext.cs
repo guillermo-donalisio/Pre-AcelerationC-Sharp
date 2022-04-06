@@ -22,9 +22,30 @@ public class DisneyContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Foreign keys as composite primary key in the joining table
-        modelBuilder.Entity<MovieCharacter>().HasKey(mc => new {mc.IdCharacter, mc.IdMovie});
-        modelBuilder.Entity<GenreMovie>().HasKey(gm => new {gm.IdGenre, gm.IdMovie});       
+        // Many-to-many relationship. Foreign keys as composite primary key in the joining table
+        modelBuilder.Entity<MovieCharacter>().HasKey(mc => new {mc.CharacterID, mc.MovieID});
+        modelBuilder.Entity<GenreMovie>().HasKey(gm => new {gm.GenreID, gm.MovieID});    
+
+        // One-to-many relationship between the joining entity and other entities
+        modelBuilder.Entity<MovieCharacter>()
+            .HasOne(m => m.Movie)
+            .WithMany(mc => mc.MovieCharacter)
+            .HasForeignKey(m => m.MovieID);
+
+        modelBuilder.Entity<MovieCharacter>()
+            .HasOne(c => c.Character)
+            .WithMany(mc => mc.MovieCharacter)
+            .HasForeignKey(c => c.CharacterID);
+
+        modelBuilder.Entity<GenreMovie>()
+            .HasOne(g => g.Genre)
+            .WithMany(gm => gm.GenreMovie)
+            .HasForeignKey(g => g.GenreID); 
+            
+        modelBuilder.Entity<GenreMovie>()
+            .HasOne(m => m.Movie)
+            .WithMany(gm => gm.GenreMovie)
+            .HasForeignKey(m => m.MovieID);              
     }
 
     public DbSet<Character>? Characters {set;get;}
